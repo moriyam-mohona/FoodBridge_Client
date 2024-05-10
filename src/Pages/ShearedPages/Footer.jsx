@@ -1,16 +1,19 @@
 const Footer = () => {
   return (
     <div>
-      <footer className="footer p-10 bg-base-300 text-base-content">
-        <aside className="items-center grid-flow-col">
-          <p>
+      <footer className="footer p-10 bg-base-200 text-base-content grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        <aside className="flex flex-col items-center md:flex-row lg:flex-col">
+          <p className="text-center md:text-left lg:text-center">
             <span className="btn btn-ghost p-0 text-2xl font-bold text-[#03081F]">
               FoodBridge Ltd.
             </span>{" "}
-            <br />
+          </p>
+          <p className="text-center md:text-left lg:text-center">
+            {" "}
             Providing reliable service since 2022
           </p>
         </aside>
+
         <nav>
           <h6 className="footer-title">Services</h6>
           <a className="link link-hover">Branding</a>
@@ -70,7 +73,7 @@ const Footer = () => {
           </div>
         </nav>
       </footer>
-      <footer className="footer text-[#03081F] flex justify-center items-center px-10 py-4 border-t bg-base-300  border-base-300">
+      <footer className="footer text-[#03081F] flex justify-center items-center px-10 py-4 border-t bg-base-300  border-base-30 text-center">
         <p>Copyright © 2024 - All right reserved by ACME Industries Ltd</p>
       </footer>
     </div>
