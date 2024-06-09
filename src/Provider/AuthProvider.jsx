@@ -48,18 +48,6 @@ const AuthProvider = ({ children }) => {
     });
   };
 
-  //   // {
-  //   //   displayName: name,
-  //   //   photoURL: photo,
-  //   // }
-  //     .then(() => {
-  //       toast.success("Profile Updated successfully");
-  //     })
-  //     .catch((error) => {
-  //       toast.error(error.message);
-  //     });
-  // };
-
   const loginUser = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);

@@ -1,8 +1,11 @@
+import logo from "../../../public/assets/logo.png";
 const Footer = () => {
   return (
     <div>
       <footer className="footer p-10 bg-base-200 text-base-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
-        <aside className=" items-center ">
+        {/* <aside className=" items-center gap-2"></aside> */}
+        <div className="flex flex-col items-center gap-3">
+          <img src={logo} alt="" className="w-32 h-32 mb-2" />
           <p className="text-center md:text-left lg:text-center">
             <span className="btn btn-ghost p-0 text-2xl font-bold text-[#03081F] mb-3 text-center">
               FoodBridge Ltd.
@@ -10,8 +13,7 @@ const Footer = () => {
             <br />
             Providing reliable service since 2022
           </p>
-        </aside>
-
+        </div>
         <nav>
           <h6 className="footer-title">Services</h6>
           <a className="link link-hover">Branding</a>

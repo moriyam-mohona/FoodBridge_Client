@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AuthContext } from "../Providers/AuthProvider";
+import { AuthContext } from "../Provider/AuthProvider";
 import { Navigate, useLocation } from "react-router-dom";
 
 const PrivateRoute = ({ children }) => {
@@ -9,7 +9,7 @@ const PrivateRoute = ({ children }) => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <span className="loading loading-ring loading-lg bg-green-700"></span>
+        <span className="loading loading-ring loading-lg bg-orange-500"></span>
       </div>
     );
   }

@@ -1,4 +1,7 @@
-import { Link, NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
+import logo from "../../../public/assets/logo.png";
 
 const Navbar = () => {
   const navItems = (
@@ -7,7 +10,7 @@ const Navbar = () => {
         <NavLink
           to="/"
           style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FC8A06 " : "",
+            backgroundColor: isActive ? "#FC8A06" : "",
             color: isActive ? "white" : "black",
             borderRadius: "9999px",
           })}
@@ -17,9 +20,9 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/about"
+          to="/availableFood"
           style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FC8A06 " : "",
+            backgroundColor: isActive ? "#FC8A06" : "",
             color: isActive ? "white" : "black",
             borderRadius: "9999px",
           })}
@@ -29,9 +32,9 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/service"
+          to="/addFood"
           style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FC8A06 " : "",
+            backgroundColor: isActive ? "#FC8A06" : "",
             color: isActive ? "white" : "black",
             borderRadius: "9999px",
           })}
@@ -41,9 +44,9 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/blog"
+          to="/manageFood"
           style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FC8A06 " : "",
+            backgroundColor: isActive ? "#FC8A06" : "",
             color: isActive ? "white" : "black",
             borderRadius: "9999px",
           })}
@@ -53,9 +56,9 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/contact"
+          to="/myFoodRequest"
           style={({ isActive }) => ({
-            backgroundColor: isActive ? "#FC8A06 " : "",
+            backgroundColor: isActive ? "#FC8A06" : "",
             color: isActive ? "white" : "black",
             borderRadius: "9999px",
           })}
@@ -65,6 +68,17 @@ const Navbar = () => {
       </li>
     </>
   );
+  const navigate = useNavigate();
+  const { logout, user } = useContext(AuthContext);
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        if (user) {
+          navigate(location?.state || "/login");
+        }
+      })
+      .catch((error) => console.error(error.message));
+  };
   return (
     <div className="navbar bg-base-100 ">
       <div className="navbar-start">
@@ -92,22 +106,56 @@ const Navbar = () => {
             {navItems}
           </ul>
         </div>
-        <Link
-          to="/"
-          className="btn btn-ghost p-0 text-3xl font-bold text-[#03081F]"
-        >
-          FoodBridge
-        </Link>
+        <div className="flex gap-3 items-center">
+          <img src={logo} alt="" className="h-20 w-16" />
+
+          <Link
+            to="/"
+            className="btn btn-ghost p-0 text-3xl font-bold text-[#03081F]"
+          >
+            FoodBridge
+          </Link>
+        </div>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navItems}</ul>
       </div>
       <div className="navbar-end">
-        <Link to="/login">
-          <button className="btn rounded-full bg-[#03081F] text-white text-md px-8 py-2 font-normal">
-            Login
-          </button>
-        </Link>
+        {user ? (
+          <div className="flex items-center gap-5">
+            <ul tabIndex={0} className="">
+              <li>
+                <button
+                  className=" btn glass bg-[#FC8A06] rounded-full text-md  text-white"
+                  onClick={handleLogout}
+                >
+                  Log Out
+                </button>
+              </li>
+            </ul>
+            <div
+              tabIndex={0}
+              role="button"
+              className=" tooltip btn-ghost btn-circle avatar flex "
+              data-tip={user.displayName}
+            >
+              <img
+                alt=""
+                className="w-10 rounded-full "
+                src={
+                  user?.photoURL ||
+                  "https://i.ibb.co/mXVJ4Qq/c-HJpdm-F0-ZS9sci9pb-WFn-ZXMvd2-Vic2l0-ZS8y-MDIz-LTAx-L3-Jt-Nj-A5-LXNvb-Glka-WNvbi13-LTAw-Mi1w-Ln-Bu.webp"
+                }
+              />
+            </div>
+          </div>
+        ) : (
+          <Link to="/login">
+            <button className=" btn glass bg-[#FC8A06] rounded-full text-md  text-white">
+              Log In
+            </button>{" "}
+          </Link>
+        )}
       </div>
     </div>
   );
