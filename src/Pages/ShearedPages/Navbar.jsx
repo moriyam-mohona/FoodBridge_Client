@@ -107,7 +107,7 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="flex gap-3 items-center">
-          <img src={logo} alt="" className="h-20 w-16" />
+          <img src={logo} alt="" className="h-12 w-14" />
 
           <Link
             to="/"

@@ -8,10 +8,12 @@ const FeaturedFoodCard = ({ featuredFood }) => {
     _id,
     foodImage,
     foodName,
-    donator,
+    donatorEmail,
+    donatorName,
+    donatorPhoto,
     foodQuantity,
     pickupLocation,
-    expiredDateTime,
+    expiredDate,
   } = featuredFood;
   return (
     <div>
@@ -24,9 +26,6 @@ const FeaturedFoodCard = ({ featuredFood }) => {
         />
         <div className="flex  items-start justify-between w-full gap-2">
           <h2 className="text-xl font-semibold">{foodName}</h2>
-          {/* <p className="font-semibold text-xl text-[#008EC4] ">
-            {donator.donatorName}
-          </p> */}
         </div>
         <p className="flex items-center gap-1 font-normal">
           <CiLocationOn />
@@ -39,7 +38,7 @@ const FeaturedFoodCard = ({ featuredFood }) => {
             className="w-10 h-10 rounded-full dark:bg-gray-500"
           />{" "}
           {/* <h3 className="text-sm font-medium">{donator.donatorName}</h3> */}
-          <h3 className="text-sm font-medium">{donator?.donatorName}</h3>
+          <h3 className="text-sm font-medium">{donatorName}</h3>
         </div>
         <div className="flex justify-between">
           <p className="text-md font-medium flex gap-2 items-center">
@@ -48,7 +47,7 @@ const FeaturedFoodCard = ({ featuredFood }) => {
           </p>
           <p className="text-md font-medium flex gap-2 items-center">
             <FcExpired />
-            {expiredDateTime}
+            {expiredDate}
           </p>
         </div>
         <Link

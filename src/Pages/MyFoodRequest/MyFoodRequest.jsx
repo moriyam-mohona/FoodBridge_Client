@@ -1,5 +1,7 @@
+// Frontend (React)
 import { useState, useEffect } from "react";
 import { useAuth } from "../../Hook/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const MyFoodRequest = () => {
   const { user } = useAuth();
@@ -27,6 +29,9 @@ const MyFoodRequest = () => {
 
   return (
     <div className="overflow-x-auto">
+      <Helmet>
+        <title>FoodBridge | My Food Request</title>
+      </Helmet>
       <table className="table">
         <thead>
           <tr>
@@ -39,6 +44,7 @@ const MyFoodRequest = () => {
             <th>Donator</th>
             <th>Pickup Location</th>
             <th>Expired Date</th>
+            <th>Request Date</th> {/* Add this column */}
             <th></th>
           </tr>
         </thead>
@@ -68,7 +74,8 @@ const MyFoodRequest = () => {
                 <div className="text-sm opacity-50">{food.donatorEmail}</div>
               </td>
               <td>{food.pickupLocation}</td>
-              <td>{food.expiredDateTime}</td>
+              <td>{food.expiredDate}</td>
+              <td>{food.requestDate}</td>
             </tr>
           ))}
         </tbody>

@@ -37,12 +37,12 @@ const Register = () => {
     createUser(email, password)
       .then((result) => {
         if (result.user) {
-          navigate("/");
-          toast.success("User created successfully");
           updateUserProfile(name, photo).then(() => {
             setUser((prevUser) => {
               return { ...prevUser, displayName: name, photoURL: photo };
             });
+            navigate("/");
+            toast.success("User created successfully");
           });
         }
       })
@@ -60,12 +60,12 @@ const Register = () => {
       <Helmet>
         <title>Cozy | Register</title>
       </Helmet>
-      <div className="hero-content flex-col lg:col">
-        <div className="text-center ">
-          <h1 className="text-5xl font-bold text-[#FC8A06 ] ">Register Now</h1>
+      <div className="hero-content flex-col ">
+        <div className="text-center mt-10">
+          <h1 className="text-5xl font-bold ">Register Now</h1>
           <p className="py-6">
             Please provide accurate information and create an account to access
-            all the details
+            all the details.
           </p>
         </div>
         <div className="card w-full max-w-md mx-auto shadow-2xl bg-base-100">
@@ -82,7 +82,7 @@ const Register = () => {
                 {...register("name", { required: true })}
               />
               {errors.name && (
-                <span className="text-red-700text-sm  mt-2">
+                <span className="text-red-700 text-sm mt-2">
                   This field is required
                 </span>
               )}
@@ -129,7 +129,7 @@ const Register = () => {
                   {...register("password", { required: true })}
                 />
                 <span
-                  className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer text-[#FC8A06 ]  text-lg"
+                  className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer text-lg"
                   onClick={togglePassword}
                 >
                   {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
@@ -147,11 +147,8 @@ const Register = () => {
               </button>
             </div>
             <p className="text-center">
-              Already Have an Account?{" "}
-              <Link
-                to="/login"
-                className="underline font-semibold text-[#FC8A06 ]"
-              >
+              Already have an account?{" "}
+              <Link to="/login" className="underline font-semibold ">
                 Login
               </Link>
             </p>

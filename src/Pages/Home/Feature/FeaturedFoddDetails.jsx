@@ -1,37 +1,39 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { IoIosPeople } from "react-icons/io";
 import { useLoaderData } from "react-router-dom";
 import { useAuth } from "../../../Hook/useAuth"; // assuming you have a useAuth hook for logged-in user details
 
-const FeaturedFoddDetails = () => {
+const FeaturedFoodDetails = () => {
   const singleFood = useLoaderData();
   const { user } = useAuth();
   const {
     _id: foodId,
     foodImage,
     foodName,
-    donator,
     foodQuantity,
     pickupLocation,
-    expiredDateTime,
+    donatorEmail,
+    expiredDate,
     additionalNotes,
     details,
+    donatorName,
+    donatorPhoto,
   } = singleFood;
 
   const [notes, setNotes] = useState("");
 
   const handleRequestFood = async () => {
     const requestDetails = {
-      foodId,
       foodName,
       foodImage,
-      donatorEmail: donator?.donatorEmail,
-      donatorName: donator?.donatorName,
+      donatorEmail,
+      donatorName,
+      donatorPhoto,
       userEmail: user.email,
       requestDate: new Date().toISOString(),
       pickupLocation,
-      expiredDateTime,
+      expiredDate,
       additionalNotes: notes,
     };
 
@@ -74,7 +76,6 @@ const FeaturedFoddDetails = () => {
               <IoIosPeople /> {foodQuantity} Servings
             </span>
             <span className="flex">
-              {" "}
               <CiLocationOn />
               {pickupLocation}
             </span>
@@ -84,24 +85,25 @@ const FeaturedFoddDetails = () => {
       <div className="flex flex-col col-span-12 p-6 divide-y lg:col-span-6 lg:p-10 dark:divide-gray-300">
         <div className="pt-6 pb-4 space-y-2">
           <div className="flex items-center mt-8 space-x-4">
-            <img
-              src="https://source.unsplash.com/100x100/?portrait"
-              alt=""
-              className="w-10 h-10 rounded-full dark:bg-gray-500"
-            />
-            {/* <h3 className="text-sm font-medium">{donator.donatorName}</h3> */}
-            <h3 className="text-sm font-medium">{donator?.donatorName}</h3>
+            <h3 className="text-md font-medium">
+              <span className="font-bold">Donator Name :</span> {donatorName}
+            </h3>
           </div>
-          <span>Expired Date : {expiredDateTime}</span>
-          <p>{details?.description}</p>
+          <p>
+            <span className="font-bold">Expired Date : </span>
+            {expiredDate}
+          </p>
+          <p>
+            <span className="font-bold">Details : </span>
+            {details}
+          </p>
           <p className="pb-6">
-            {" "}
-            <span className="font-bold">Additional Notes :</span>{" "}
+            <span className="font-bold">Additional Notes:</span>{" "}
             {additionalNotes}
           </p>
         </div>
         <button
-          className="btn glass bg-[#FC8A06] text-white px-6 py-2 rounded-full mt-1 lg:mt-3 text-lg font-medium flex item-center"
+          className="btn glass bg-[#FC8A06] text-white px-6 py-2 rounded-full mt-1 lg:mt-3 text-lg font-medium flex items-center"
           onClick={() => document.getElementById("my_modal_3").showModal()}
         >
           Request Food
@@ -163,7 +165,7 @@ const FeaturedFoddDetails = () => {
               </label>
               <input
                 type="text"
-                value={donator?.donatorEmail}
+                value={donatorEmail}
                 readOnly
                 className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100"
               />
@@ -174,7 +176,7 @@ const FeaturedFoddDetails = () => {
               </label>
               <input
                 type="text"
-                value={donator?.donatorName}
+                value={donatorName}
                 readOnly
                 className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100"
               />
@@ -218,7 +220,7 @@ const FeaturedFoddDetails = () => {
               </label>
               <input
                 type="text"
-                value={expiredDateTime}
+                value={expiredDate}
                 readOnly
                 className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm bg-gray-100"
               />
@@ -253,4 +255,4 @@ const FeaturedFoddDetails = () => {
   );
 };
 
-export default FeaturedFoddDetails;
+export default FeaturedFoodDetails;

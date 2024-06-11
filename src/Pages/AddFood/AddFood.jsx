@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useAuth } from "../../Hook/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const AddFood = () => {
   const [foodName, setFoodName] = useState("");
   const [foodImage, setFoodImage] = useState(null);
   const [foodQuantity, setFoodQuantity] = useState("");
   const [pickupLocation, setPickupLocation] = useState("");
-  const [expiredDateTime, setExpiredDateTime] = useState("");
+  const [expiredDate, setexpiredDate] = useState("");
   const [additionalNotes, setAdditionalNotes] = useState("");
   const [foodStatus, setFoodStatus] = useState("available");
   const { user } = useAuth();
@@ -19,22 +20,24 @@ const AddFood = () => {
     formData.append("foodImage", foodImage);
     formData.append("foodQuantity", foodQuantity);
     formData.append("pickupLocation", pickupLocation);
-    formData.append("expiredDateTime", expiredDateTime);
+    formData.append("expiredDate", expiredDate);
     formData.append("additionalNotes", additionalNotes);
-    formData.append("donatorImage", user.image);
     formData.append("donatorName", user.name);
     formData.append("donatorEmail", user.email);
     formData.append("foodStatus", foodStatus);
     console.log(formData);
-    // const addFood = { foodName ,foodImage, foodQuantity , pickupLocation ,expiredDateTime , additionalNotes , foodStatus, user.image ,user.name ,user.email} ;
+    // const addFood = { foodName ,foodImage, foodQuantity , pickupLocation ,expiredDate , additionalNotes , foodStatus, user.image ,user.name ,user.email} ;
     const addFood = {
       foodName,
       foodImage,
       foodQuantity,
       pickupLocation,
-      expiredDateTime,
+      expiredDate,
       additionalNotes,
       foodStatus,
+      donatorEmail: user.email,
+      donatorName: user.displayName,
+      donatorPhoto: user.photoURL,
     };
     fetch("http://localhost:5000/FeaturedFoods", {
       method: "POST",
@@ -53,33 +56,13 @@ const AddFood = () => {
           alert("Failed to add food item");
         }
       });
-    //     // console.log(addFood);
-    // try {
-    //   const response = await fetch("http://localhost:5000/FeaturedFoods", {
-    //     method: "POST",
-    //     headers: {
-    //       "content-type": "application/json",
-    //     },
-    //     body: JSON.stringify(addFood),
-    //   })
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       console.log(data);
-    //     });
-    //   if (response.ok) {
-    //     alert("Food item added successfully!");
-    //     // Optionally reset the form
-    //   } else {
-    //     alert("Failed to add food item");
-    //   }
-    // } catch (error) {
-    //   console.error("Error:", error);
-    //   alert("An error occurred while adding the food item");
-    // }
   };
 
   return (
     <div className="max-w-xl mx-auto p-4 bg-white shadow-md rounded-lg">
+      <Helmet>
+        <title>FoodBridge | Add Food</title>
+      </Helmet>
       <h2 className="text-2xl font-bold mb-4">Add Food</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -96,11 +79,11 @@ const AddFood = () => {
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
-            Food Image
+            Food Image URL
           </label>
           <input
-            type="file"
-            onChange={(e) => setFoodImage(e.target.files[0])}
+            type="text"
+            onChange={(e) => setFoodImage(e.target.value)}
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm"
             required
           />
@@ -131,12 +114,12 @@ const AddFood = () => {
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
-            Expired Date/Time
+            Expired Date
           </label>
           <input
             type="date"
-            value={expiredDateTime}
-            onChange={(e) => setExpiredDateTime(e.target.value)}
+            value={expiredDate}
+            onChange={(e) => setexpiredDate(e.target.value)}
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm"
             required
           />
@@ -153,7 +136,7 @@ const AddFood = () => {
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
-            User name
+            Donator name
           </label>
           <input
             defaultValue={user.displayName}
@@ -163,7 +146,7 @@ const AddFood = () => {
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
-            User Email
+            Donator Email
           </label>
           <input
             defaultValue={user.email}

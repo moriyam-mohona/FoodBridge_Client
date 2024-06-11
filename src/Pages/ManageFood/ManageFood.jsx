@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../Hook/useAuth";
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 
 const ManageFood = () => {
   const [foods, setFoods] = useState([]);
@@ -55,16 +57,14 @@ const ManageFood = () => {
   };
 
   return (
-    <div>
-      <h2>Manage Food</h2>
-      <table>
+    <div className="overflow-x-auto">
+      <table className="table">
         <thead>
           <tr>
-            <th>Food Image</th>
             <th>Food Name</th>
             <th>Pickup Location</th>
             <th>Quantity</th>
-            <th>Expire Date/Time</th>
+            <th>Expire Date</th>
             <th>Additional Notes</th>
             <th>Actions</th>
           </tr>
@@ -73,20 +73,48 @@ const ManageFood = () => {
           {foods.map((food) => (
             <tr key={food._id}>
               <td>
-                <img src={food.foodImage} alt={food.foodName} width="50" />
+                <div className="flex items-center gap-3">
+                  <div className="avatar">
+                    <div className="mask mask-squircle w-12 h-12">
+                      <img src={food.foodImage} alt="Food Image" />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="font-bold">{food.foodName}</div>
+                  </div>
+                </div>
               </td>
-              <td>{food.foodName}</td>
               <td>{food.pickupLocation}</td>
               <td>{food.foodQuantity}</td>
-              <td>{food.expiredDateTime}</td>
+              <td>{food.expiredDate}</td>
               <td>{food.additionalNotes}</td>
               <td>
-                <button onClick={() => handleUpdate(food._id)}>Update</button>
-                <button onClick={() => handleDelete(food._id)}>Delete</button>
+                <button
+                  className="btn btn-ghost btn-xs"
+                  onClick={() => handleUpdate(food._id)}
+                >
+                  Update
+                </button>
+                <button
+                  className="btn btn-ghost btn-xs"
+                  onClick={() => handleDelete(food._id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
+        <tfoot>
+          <tr>
+            <th>Food Name</th>
+            <th>Pickup Location</th>
+            <th>Quantity</th>
+            <th>Expire Date/Time</th>
+            <th>Additional Notes</th>
+            <th>Actions</th>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );
