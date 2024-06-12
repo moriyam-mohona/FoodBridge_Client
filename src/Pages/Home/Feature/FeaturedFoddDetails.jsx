@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { IoIosPeople } from "react-icons/io";
 import { useLoaderData } from "react-router-dom";
 import { useAuth } from "../../../Hook/useAuth"; // assuming you have a useAuth hook for logged-in user details
-
 const FeaturedFoodDetails = () => {
   const singleFood = useLoaderData();
   const { user } = useAuth();
+  // const history = useHistory();
   const {
     _id: foodId,
     foodImage,
@@ -22,19 +22,25 @@ const FeaturedFoodDetails = () => {
   } = singleFood;
 
   const [notes, setNotes] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleRequestFood = async () => {
+    setLoading(true);
     const requestDetails = {
-      foodName,
-      foodImage,
-      donatorEmail,
-      donatorName,
-      donatorPhoto,
+      ...singleFood,
       userEmail: user.email,
       requestDate: new Date().toISOString(),
-      pickupLocation,
-      expiredDate,
       additionalNotes: notes,
+      // foodName,
+      // foodImage,
+      // donatorEmail,
+      // donatorName,
+      // donatorPhoto,
+      // userEmail: user.email,
+      // requestDate: new Date().toISOString(),
+      // pickupLocation,
+      // expiredDate,
+      // additionalNotes: notes,
     };
 
     try {
@@ -49,12 +55,12 @@ const FeaturedFoodDetails = () => {
       if (response.ok) {
         alert("Food request submitted successfully!");
         document.getElementById("my_modal_3").close();
+        history.push("/my-requested-foods");
       } else {
         alert("Failed to submit food request");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred while submitting the food request");
     }
   };
 
@@ -108,6 +114,13 @@ const FeaturedFoodDetails = () => {
         >
           Request Food
         </button>
+        {/* <button
+          disabled={loading}
+          className="btn glass bg-[#FC8A06] text-white px-6 py-2 rounded-full mt-1 lg:mt-3 text-lg font-medium flex items-center"
+          onClick={handleRequestFood}
+        >
+          {loading ? "Requesting..." : "Request Food"}
+        </button> */}
       </div>
 
       <dialog id="my_modal_3" className="modal">

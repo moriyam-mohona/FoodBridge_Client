@@ -1,5 +1,7 @@
 import { Link, useRouteError } from "react-router-dom";
-import e404 from "../../../public/assets/404.png";
+import Lottie from "lottie-react"; // Import the Lottie component
+import errorAnimation from "./Error.json"; // Import your Lottie animation file
+
 export default function ErrorPage() {
   const error = useRouteError();
   console.error(error);
@@ -9,11 +11,11 @@ export default function ErrorPage() {
       <section className="flex items-center  p-20 ">
         <div className="container flex flex-col items-center  px-5 mx-auto my-8">
           <div className="max-w-lg text-center">
-            <img src={e404} alt="" />
-
+            {/* Replace the image with the Lottie animation */}
+            <Lottie animationData={errorAnimation} />
             <Link
               to="/"
-              className="btn rounded-full bg-[#03081F] text-white text-md px-8 py-2 font-normal"
+              className="btn rounded-full bg-yellow-400  text-md px-8 py-2 font-bold"
             >
               Back to Homepage
             </Link>
