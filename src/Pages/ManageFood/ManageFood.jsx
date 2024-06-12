@@ -72,7 +72,7 @@ const ManageFood = () => {
   };
 
   const handleUpdate = (id) => {
-    history.push(`/updateFood/${id}`);
+    history.push(`/FeaturedFoods/${id}`);
     toast.info("Redirecting to update form...");
   };
 
