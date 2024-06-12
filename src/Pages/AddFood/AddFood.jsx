@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "../../Hook/useAuth";
 import { Helmet } from "react-helmet-async";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddFood = () => {
   const [foodName, setFoodName] = useState("");
@@ -25,8 +27,7 @@ const AddFood = () => {
     formData.append("donatorName", user.name);
     formData.append("donatorEmail", user.email);
     formData.append("foodStatus", foodStatus);
-    console.log(formData);
-    // const addFood = { foodName ,foodImage, foodQuantity , pickupLocation ,expiredDate , additionalNotes , foodStatus, user.image ,user.name ,user.email} ;
+
     const addFood = {
       foodName,
       foodImage,
@@ -48,12 +49,11 @@ const AddFood = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.insertedId) {
-          alert("Food item added successfully!");
+          toast.success("Food item added successfully!");
           history.push("/availableFoods");
         } else {
-          alert("Failed to add food item");
+          toast.error("Failed to add food item");
         }
       });
   };
@@ -160,6 +160,7 @@ const AddFood = () => {
           Add
         </button>
       </form>
+      <ToastContainer /> {/* Toast notifications */}
     </div>
   );
 };
