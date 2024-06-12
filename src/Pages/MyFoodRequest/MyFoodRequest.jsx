@@ -35,11 +35,6 @@ const MyFoodRequest = () => {
       <table className="table">
         <thead>
           <tr>
-            <th>
-              <label>
-                <input type="checkbox" className="checkbox" />
-              </label>
-            </th>
             <th>Name</th>
             <th>Donator</th>
             <th>Pickup Location</th>
@@ -51,11 +46,6 @@ const MyFoodRequest = () => {
         <tbody>
           {requestedFoods.map((food) => (
             <tr key={food._id}>
-              <th>
-                <label>
-                  <input type="checkbox" className="checkbox" />
-                </label>
-              </th>
               <td>
                 <div className="flex items-center gap-3">
                   <div className="avatar">

@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../Hook/useAuth";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
+// import { Link, useHistory } from "react-router-dom";
 
 const ManageFood = () => {
   const [foods, setFoods] = useState([]);
   const { user } = useAuth();
+  // const history = useHistory();
 
   useEffect(() => {
     fetchUserFoods();
@@ -22,42 +26,61 @@ const ManageFood = () => {
         setFoods(userFoods);
       } else {
         console.error("Failed to fetch user foods");
+        toast.error("Failed to fetch user foods");
       }
     } catch (error) {
       console.error("Error:", error);
+      toast.error("Error fetching user foods");
     }
   };
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this food?"
-    );
-    if (confirmDelete) {
-      try {
-        const response = await fetch(
-          `http://localhost:5000/FeaturedFoods/${id}`,
-          {
-            method: "DELETE",
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(
+            `http://localhost:5000/FeaturedFoods/${id}`,
+            {
+              method: "DELETE",
+            }
+          );
+          if (response.ok) {
+            setFoods(foods.filter((food) => food._id !== id));
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your food item has been deleted.",
+              icon: "success",
+            });
+          } else {
+            console.error("Failed to delete food");
+            toast.error("Failed to delete food item");
           }
-        );
-        if (response.ok) {
-          setFoods(foods.filter((food) => food._id !== id));
-        } else {
-          console.error("Failed to delete food");
+        } catch (error) {
+          console.error("Error:", error);
+          toast.error("Error deleting food item");
         }
-      } catch (error) {
-        console.error("Error:", error);
       }
-    }
+    });
   };
 
   const handleUpdate = (id) => {
-    // Redirect to update form with food ID
-    window.location.href = `/updateFood/${id}`;
+    history.push(`/updateFood/${id}`);
+    toast.info("Redirecting to update form...");
   };
 
   return (
     <div className="overflow-x-auto">
+      <Helmet>
+        <title>FoodBridge | Manage Food</title>
+      </Helmet>
       <table className="table">
         <thead>
           <tr>
@@ -116,6 +139,7 @@ const ManageFood = () => {
           </tr>
         </tfoot>
       </table>
+      <ToastContainer />
     </div>
   );
 };

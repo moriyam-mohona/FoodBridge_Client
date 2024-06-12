@@ -160,7 +160,7 @@ const AddFood = () => {
           Add
         </button>
       </form>
-      <ToastContainer /> {/* Toast notifications */}
+      <ToastContainer />
     </div>
   );
 };

@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import { CiLocationOn } from "react-icons/ci";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const AvailableFood = () => {
   const [availableFoods, setAvailableFoods] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("");
+  const [layout, setLayout] = useState("grid-cols-3"); // State variable for layout
 
   useEffect(() => {
     // Fetch available foods from backend
@@ -43,11 +43,17 @@ const AvailableFood = () => {
       })
     : filteredFoods;
 
+  // Toggle between three-column and two-column layouts
+  const toggleLayout = () => {
+    setLayout(layout === "grid-cols-3" ? "grid-cols-2" : "grid-cols-3");
+  };
+
   return (
-    <div className="flex flex-col justify-center  h-full">
+    <div className="flex flex-col justify-center h-full">
       <h2 className="flex justify-center text-5xl font-bold text-[#03081F] my-5">
         Available Foods
       </h2>
+      {/* Search input */}
       <div className="flex items-center text-lg p-4 input input-bordered gap-2 m-5">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -70,13 +76,14 @@ const AvailableFood = () => {
         />
       </div>
 
+      {/* Sort select dropdown */}
       <div className="mb-10 mx-auto">
         <select
           className="select select-bordered w-full text-lg opacity-70"
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
         >
-          <option value="" disabled className="">
+          <option value="" disabled>
             Sort By
           </option>
           <option value="asc">Sort Ascending</option>
@@ -84,9 +91,19 @@ const AvailableFood = () => {
         </select>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      {/* Change layout button */}
+      <button
+        className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4 mx-auto"
+        onClick={toggleLayout}
+      >
+        Change Layout
+      </button>
+
+      {/* Grid of food items */}
+      <div className={`grid ${layout} gap-4`}>
         {sortedFoods.map((food) => (
           <div key={food._id} className="border p-4 rounded-md">
+            {/* Food details */}
             <img
               src={food.foodImage}
               alt={food.foodName}
@@ -108,6 +125,7 @@ const AvailableFood = () => {
               <span className="font-bold">Additional Notes:</span>{" "}
               {food.additionalNotes}
             </p>
+            {/* Link to view details */}
             <Link
               to={`/foodDetails/${food._id}`}
               className="btn glass bg-[#FC8A06] text-white px-6 py-2 rounded-full mt-1 lg:mt-3 text-lg font-medium flex item-center"
