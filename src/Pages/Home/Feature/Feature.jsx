@@ -8,7 +8,7 @@ const Feature = () => {
 
   useEffect(() => {
     // Fetching featured foods
-    fetch("http://localhost:5000/FeaturedFoods")
+    fetch("https://food-bridge-server.vercel.app/FeaturedFoods")
       .then((res) => res.json())
       .then((data) => {
         // Sorting featured foods based on food quantity

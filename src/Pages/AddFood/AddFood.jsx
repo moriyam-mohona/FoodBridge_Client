@@ -40,7 +40,7 @@ const AddFood = () => {
       donatorName: user.displayName,
       donatorPhoto: user.photoURL,
     };
-    fetch("http://localhost:5000/FeaturedFoods", {
+    fetch("https://food-bridge-server.vercel.app/FeaturedFoods", {
       method: "POST",
       headers: {
         "content-type": "application/json",

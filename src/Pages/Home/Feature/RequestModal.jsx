@@ -23,16 +23,19 @@ const RequestModal = ({ food, closeModal }) => {
     };
 
     try {
-      const response1 = await fetch("http://localhost:5000/requestedFoods", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
+      const response1 = await fetch(
+        "https://food-bridge-server.vercel.app/requestedFoods",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        }
+      );
 
       const response2 = await fetch(
-        `http://localhost:5000/FeaturedFoods/request/${food._id}`,
+        `https://food-bridge-server.vercel.app/FeaturedFoods/request/${food._id}`,
         {
           method: "POST",
         }

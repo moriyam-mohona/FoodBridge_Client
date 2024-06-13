@@ -11,7 +11,7 @@ const MyFoodRequest = () => {
     const fetchRequestedFoods = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/requestedFoods?userEmail=${user.email}`
+          `https://food-bridge-server.vercel.app/requestedFoods?userEmail=${user.email}`
         );
         if (response.ok) {
           const data = await response.json();
@@ -39,7 +39,7 @@ const MyFoodRequest = () => {
             <th>Donator</th>
             <th>Pickup Location</th>
             <th>Expired Date</th>
-            <th>Request Date</th> {/* Add this column */}
+            <th>Request Date</th>
             <th></th>
           </tr>
         </thead>

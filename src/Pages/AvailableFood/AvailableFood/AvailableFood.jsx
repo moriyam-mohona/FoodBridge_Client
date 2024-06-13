@@ -14,7 +14,9 @@ const AvailableFood = () => {
 
   const fetchAvailableFoods = async () => {
     try {
-      const response = await fetch("http://localhost:5000/FeaturedFoods");
+      const response = await fetch(
+        "https://food-bridge-server.vercel.app/FeaturedFoods"
+      );
       if (response.ok) {
         const data = await response.json();
         const availableFoods = data.filter(

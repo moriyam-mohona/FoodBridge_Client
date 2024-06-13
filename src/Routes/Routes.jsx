@@ -11,8 +11,8 @@ import FeaturedFoddDetails from "../Pages/Home/Feature/FeaturedFoddDetails";
 import AvailableFood from "../Pages/AvailableFood/AvailableFood/AvailableFood";
 import AddFood from "../Pages/AddFood/AddFood";
 import MyFoodRequest from "../Pages/MyFoodRequest/MyFoodRequest";
-import ManageFood from "../Pages/ManageFood/ManageFood";
 import UpdateMyFood from "../Pages/ManageFood/UpdateMyFood";
+import ManageFood from "../Pages/ManageFood/ManageFood";
 
 const router = createBrowserRouter([
   {
@@ -40,7 +40,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/FeaturedFoods/${params.id}`),
+          fetch(
+            `https://food-bridge-server.vercel.app/FeaturedFoods/${params.id}`
+          ),
       },
       {
         path: "/availableFood",

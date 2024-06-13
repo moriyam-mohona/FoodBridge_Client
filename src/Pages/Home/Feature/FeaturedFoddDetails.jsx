@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { IoIosPeople } from "react-icons/io";
-import { useLoaderData } from "react-router-dom";
-import { useAuth } from "../../../Hook/useAuth"; // assuming you have a useAuth hook for logged-in user details
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { useAuth } from "../../../Hook/useAuth";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 const FeaturedFoodDetails = () => {
   const singleFood = useLoaderData();
   const { user } = useAuth();
-  // const history = useHistory();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   const {
     _id: foodId,
     foodImage,
@@ -22,46 +26,46 @@ const FeaturedFoodDetails = () => {
   } = singleFood;
 
   const [notes, setNotes] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const handleRequestFood = async () => {
-    setLoading(true);
+  const requestFoodMutation = useMutation({
+    mutationFn: async (requestDetails) => {
+      const response = await fetch(
+        "https://food-bridge-server.vercel.app/requestedFoods",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestDetails),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to submit food request");
+      }
+
+      return response.json();
+    },
+    onSuccess: () => {
+      alert("Food request submitted successfully!");
+      queryClient.invalidateQueries("requestedFoods");
+      navigate("/my-requested-foods");
+    },
+    onError: (error) => {
+      console.error("Error:", error);
+      alert("An error occurred while submitting the food request");
+    },
+  });
+
+  const handleRequestFood = () => {
     const requestDetails = {
       ...singleFood,
       userEmail: user.email,
       requestDate: new Date().toISOString(),
       additionalNotes: notes,
-      // foodName,
-      // foodImage,
-      // donatorEmail,
-      // donatorName,
-      // donatorPhoto,
-      // userEmail: user.email,
-      // requestDate: new Date().toISOString(),
-      // pickupLocation,
-      // expiredDate,
-      // additionalNotes: notes,
     };
 
-    try {
-      const response = await fetch("http://localhost:5000/requestedFoods", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestDetails),
-      });
-
-      if (response.ok) {
-        alert("Food request submitted successfully!");
-        document.getElementById("my_modal_3").close();
-        history.push("/my-requested-foods");
-      } else {
-        alert("Failed to submit food request");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    requestFoodMutation.mutate(requestDetails);
   };
 
   return (
@@ -114,13 +118,6 @@ const FeaturedFoodDetails = () => {
         >
           Request Food
         </button>
-        {/* <button
-          disabled={loading}
-          className="btn glass bg-[#FC8A06] text-white px-6 py-2 rounded-full mt-1 lg:mt-3 text-lg font-medium flex items-center"
-          onClick={handleRequestFood}
-        >
-          {loading ? "Requesting..." : "Request Food"}
-        </button> */}
       </div>
 
       <dialog id="my_modal_3" className="modal">

@@ -4,12 +4,12 @@ import { Helmet } from "react-helmet-async";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
-// import { Link, useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ManageFood = () => {
   const [foods, setFoods] = useState([]);
   const { user } = useAuth();
-  // const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUserFoods();
@@ -17,7 +17,9 @@ const ManageFood = () => {
 
   const fetchUserFoods = async () => {
     try {
-      const response = await fetch("http://localhost:5000/FeaturedFoods");
+      const response = await fetch(
+        "https://food-bridge-server.vercel.app/FeaturedFoods"
+      );
       if (response.ok) {
         const data = await response.json();
         const userFoods = data.filter(
@@ -47,18 +49,18 @@ const ManageFood = () => {
       if (result.isConfirmed) {
         try {
           const response = await fetch(
-            `http://localhost:5000/FeaturedFoods/${id}`,
+            `https://food-bridge-server.vercel.app/FeaturedFoods/${id}`,
             {
               method: "DELETE",
             }
           );
           if (response.ok) {
             setFoods(foods.filter((food) => food._id !== id));
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your food item has been deleted.",
-              icon: "success",
-            });
+            Swal.fire(
+              "Deleted!",
+              "Your food item has been deleted.",
+              "success"
+            );
           } else {
             console.error("Failed to delete food");
             toast.error("Failed to delete food item");
@@ -72,7 +74,7 @@ const ManageFood = () => {
   };
 
   const handleUpdate = (id) => {
-    history.push(`/FeaturedFoods/${id}`);
+    navigate(`/updateFood/${id}`);
     toast.info("Redirecting to update form...");
   };
 
@@ -113,13 +115,13 @@ const ManageFood = () => {
               <td>{food.additionalNotes}</td>
               <td>
                 <button
-                  className="btn btn-ghost btn-xs"
+                  className="btn btn-ghost btn-md"
                   onClick={() => handleUpdate(food._id)}
                 >
                   Update
                 </button>
                 <button
-                  className="btn btn-ghost btn-xs"
+                  className="btn btn-ghost btn-md"
                   onClick={() => handleDelete(food._id)}
                 >
                   Delete
