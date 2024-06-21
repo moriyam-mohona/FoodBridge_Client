@@ -11,7 +11,6 @@ export default function ErrorPage() {
       <section className="flex items-center  p-20 ">
         <div className="container flex flex-col items-center  px-5 mx-auto my-8">
           <div className="max-w-lg text-center">
-            {/* Replace the image with the Lottie animation */}
             <Lottie animationData={errorAnimation} />
             <Link
               to="/"

@@ -41,7 +41,6 @@ const UpdateMyFood = () => {
       foodImage,
     };
     console.log(updateFood);
-    //send data to the server
     fetch(`https://food-bridge-server.vercel.app/FeaturedFoods/${id}`, {
       method: "PUT",
       headers: {

@@ -17,7 +17,6 @@ const FeaturedFoodCard = ({ featuredFood }) => {
   } = featuredFood;
   return (
     <div>
-      {/* <h2>Foods : {foodImage}</h2> */}
 
       <div className="rounded-3xl p-5 card bg-base-100 border-2 border-[#008EC4] shadow-xl flex flex-col gap-2 justify-around mx-1 mb-1 w-full ">
         <img
@@ -37,7 +36,6 @@ const FeaturedFoodCard = ({ featuredFood }) => {
             alt=""
             className="w-10 h-10 rounded-full dark:bg-gray-500"
           />{" "}
-          {/* <h3 className="text-sm font-medium">{donator.donatorName}</h3> */}
           <h3 className="text-sm font-medium">{donatorName}</h3>
         </div>
         <div className="flex justify-between">

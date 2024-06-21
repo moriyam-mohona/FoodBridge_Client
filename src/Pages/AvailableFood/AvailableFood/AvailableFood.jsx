@@ -5,10 +5,9 @@ const AvailableFood = () => {
   const [availableFoods, setAvailableFoods] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("");
-  const [layout, setLayout] = useState("grid-cols-3"); // State variable for layout
+  const [layout, setLayout] = useState("md:grid-cols-3");
 
   useEffect(() => {
-    // Fetch available foods from backend
     fetchAvailableFoods();
   }, []);
 
@@ -44,7 +43,9 @@ const AvailableFood = () => {
     : filteredFoods;
 
   const toggleLayout = () => {
-    setLayout(layout === "grid-cols-3" ? "grid-cols-2" : "grid-cols-3");
+    setLayout(
+      layout === "md:grid-cols-3" ? "md:grid-cols-2" : "md:grid-cols-3"
+    );
   };
 
   return (
@@ -66,7 +67,7 @@ const AvailableFood = () => {
           />
         </svg>
         <input
-          className="w-full  rounded "
+          className="w-full rounded "
           type="text"
           placeholder="Search by Food Name"
           value={searchQuery}
@@ -74,7 +75,7 @@ const AvailableFood = () => {
         />
       </div>
 
-      <div className="mb-10 mx-auto">
+      <div className="mb-10 mx-auto w-full max-w-md">
         <select
           className="select select-bordered w-full text-lg opacity-70"
           value={sortBy}
@@ -95,14 +96,13 @@ const AvailableFood = () => {
         Change Layout
       </button>
 
-      <div className={`grid ${layout} gap-4`}>
+      <div className={`grid grid-cols-1 sm:grid-cols-2 ${layout} gap-4`}>
         {sortedFoods.map((food) => (
           <div key={food._id} className="border p-4 rounded-md">
-            {/* Food details */}
             <img
               src={food.foodImage}
               alt={food.foodName}
-              className="w-full h-80 mb-4"
+              className="w-full h-80 object-cover mb-4"
             />
             <h3 className="font-bold text-2xl mb-2">{food.foodName}</h3>
             <p className="flex gap-2 mb-2">
@@ -120,10 +120,9 @@ const AvailableFood = () => {
               <span className="font-bold">Additional Notes:</span>{" "}
               {food.additionalNotes}
             </p>
-            {/* Link to view details */}
             <Link
               to={`/foodDetails/${food._id}`}
-              className="btn glass bg-[#FC8A06] text-white px-6 py-2 rounded-full mt-1 lg:mt-3 text-lg font-medium flex item-center"
+              className="btn glass bg-[#FC8A06] text-white px-6 py-2 rounded-full mt-1 lg:mt-3 text-lg font-medium flex items-center"
             >
               View Details →
             </Link>

@@ -7,7 +7,6 @@ const Feature = () => {
   const [featuredFood, setFeaturedFood] = useState([]);
 
   useEffect(() => {
-    // Fetching featured foods
     fetch("https://food-bridge-server.vercel.app/FeaturedFoods")
       .then((res) => res.json())
       .then((data) => {
