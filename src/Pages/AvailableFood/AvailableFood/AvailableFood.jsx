@@ -31,12 +31,10 @@ const AvailableFood = () => {
     }
   };
 
-  // Filter available foods based on search query
   const filteredFoods = availableFoods.filter((food) =>
     food.foodName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Sort available foods based on expiry date
   const sortedFoods = sortBy
     ? [...filteredFoods].sort((a, b) => {
         const dateA = new Date(a.expiredDate);

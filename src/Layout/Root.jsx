@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 const Root = () => {
   return (
     <div>
-      <div className="sm:p-2 md:p-4 lg:p-8">
+      <div className="sm:p-2 md:p-4 lg:p-8 overflow-x-hidden">
         <Navbar></Navbar>
         <Outlet></Outlet>
         <Toaster />

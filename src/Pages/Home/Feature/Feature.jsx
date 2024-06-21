@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import FeaturedFoodCard from "./FeaturedFoodCard";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -11,7 +11,6 @@ const Feature = () => {
     fetch("https://food-bridge-server.vercel.app/FeaturedFoods")
       .then((res) => res.json())
       .then((data) => {
-        // Sorting featured foods based on food quantity
         const sortedFeaturedFood = data.sort(
           (a, b) => b.foodQuantity - a.foodQuantity
         );
