@@ -51,7 +51,7 @@ const AddFood = () => {
       .then((data) => {
         if (data.insertedId) {
           toast.success("Food item added successfully!");
-          // history.push("/availableFoods");
+          history.push("/availableFoods");
         } else {
           toast.error("Failed to add food item");
         }
