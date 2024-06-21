@@ -14,6 +14,7 @@ const Navbar = () => {
             color: isActive ? "white" : "black",
             borderRadius: "9999px",
           })}
+          className="text-sm md:text-base lg:text-lg"
         >
           Home
         </NavLink>
@@ -26,6 +27,7 @@ const Navbar = () => {
             color: isActive ? "white" : "black",
             borderRadius: "9999px",
           })}
+          className="text-sm md:text-base lg:text-lg"
         >
           Available Foods
         </NavLink>
@@ -38,6 +40,7 @@ const Navbar = () => {
             color: isActive ? "white" : "black",
             borderRadius: "9999px",
           })}
+          className="text-sm md:text-base lg:text-lg"
         >
           Add Food
         </NavLink>
@@ -50,6 +53,7 @@ const Navbar = () => {
             color: isActive ? "white" : "black",
             borderRadius: "9999px",
           })}
+          className="text-sm md:text-base lg:text-lg"
         >
           Manage My Foods
         </NavLink>
@@ -62,14 +66,17 @@ const Navbar = () => {
             color: isActive ? "white" : "black",
             borderRadius: "9999px",
           })}
+          className="text-sm md:text-base lg:text-lg"
         >
           My Food Request
         </NavLink>
       </li>
     </>
   );
+
   const navigate = useNavigate();
   const { logout, user } = useContext(AuthContext);
+
   const handleLogout = () => {
     logout()
       .then(() => {
@@ -79,8 +86,9 @@ const Navbar = () => {
       })
       .catch((error) => console.error(error.message));
   };
+
   return (
-    <div className="navbar bg-base-100 ">
+    <div className="navbar bg-base-100">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -107,11 +115,14 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="flex gap-3 items-center">
-          <img src={logo} alt="" className="h-12 w-14" />
-
+          <img
+            src={logo}
+            alt=""
+            className="h-8 w-10 md:h-10 md:w-12 lg:h-12 lg:w-14"
+          />
           <Link
             to="/"
-            className="btn btn-ghost p-0 text-3xl font-bold text-[#03081F]"
+            className="btn btn-ghost p-0 text-xl md:text-2xl lg:text-3xl font-bold text-[#03081F]"
           >
             FoodBridge
           </Link>
@@ -123,10 +134,10 @@ const Navbar = () => {
       <div className="navbar-end">
         {user ? (
           <div className="flex items-center gap-5">
-            <ul tabIndex={0} className="">
+            <ul tabIndex={0}>
               <li>
                 <button
-                  className=" btn glass bg-[#FC8A06] rounded-full text-md  text-white"
+                  className="btn glass bg-[#FC8A06] rounded-full text-xs md:text-sm lg:text-md text-white"
                   onClick={handleLogout}
                 >
                   Log Out
@@ -136,12 +147,12 @@ const Navbar = () => {
             <div
               tabIndex={0}
               role="button"
-              className=" tooltip btn-ghost btn-circle avatar flex "
+              className="tooltip btn-ghost btn-circle avatar flex"
               data-tip={user.displayName}
             >
               <img
                 alt=""
-                className="w-10 rounded-full "
+                className="w-8 md:w-10 rounded-full"
                 src={
                   user?.photoURL ||
                   "https://i.ibb.co/mXVJ4Qq/c-HJpdm-F0-ZS9sci9pb-WFn-ZXMvd2-Vic2l0-ZS8y-MDIz-LTAx-L3-Jt-Nj-A5-LXNvb-Glka-WNvbi13-LTAw-Mi1w-Ln-Bu.webp"
@@ -151,9 +162,9 @@ const Navbar = () => {
           </div>
         ) : (
           <Link to="/login">
-            <button className=" btn glass bg-[#FC8A06] rounded-full text-md  text-white">
+            <button className="btn glass bg-[#FC8A06] rounded-full text-xs md:text-sm lg:text-md text-white">
               Log In
-            </button>{" "}
+            </button>
           </Link>
         )}
       </div>
