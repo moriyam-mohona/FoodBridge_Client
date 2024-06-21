@@ -49,7 +49,7 @@ const FeaturedFoodDetails = () => {
     onSuccess: () => {
       alert("Food request submitted successfully!");
       queryClient.invalidateQueries("requestedFoods");
-      navigate("/my-requested-foods");
+      navigate("/");
     },
     onError: (error) => {
       console.error("Error:", error);

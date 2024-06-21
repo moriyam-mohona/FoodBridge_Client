@@ -58,6 +58,7 @@ const RequestModal = ({ food, closeModal }) => {
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
         <h2 className="text-2xl font-bold mb-4">Request Food</h2>
         <form onSubmit={handleSubmit}>
+          {/* Form fields... */}
           <button
             type="submit"
             className="w-full bg-[#FC8A06] text-white font-bold py-2 px-4 rounded-md hover:bg-[#e07605]"
