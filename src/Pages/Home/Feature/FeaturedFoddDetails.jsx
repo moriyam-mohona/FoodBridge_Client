@@ -3,7 +3,6 @@ import { CiLocationOn } from "react-icons/ci";
 import { IoIosPeople } from "react-icons/io";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../Hook/useAuth";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const FeaturedFoodDetails = () => {
   const singleFood = useLoaderData();
