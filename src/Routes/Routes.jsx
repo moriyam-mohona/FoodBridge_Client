@@ -1,6 +1,4 @@
-// import { Root } from "postcss";
 import { createBrowserRouter } from "react-router-dom";
-// import ErrorPage from "../Pages/SharedPages/ErrorPage";
 import Home from "../Pages/Home/Home";
 import Root from "../Layout/Root";
 import Login from "../Pages/SecurityPages/Login";

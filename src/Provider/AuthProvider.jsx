@@ -19,15 +19,11 @@ const githubProvider = new GithubAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  // console.log(loading);
-
-  // console.log(user)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setLoading(false);
-      //   if (user) {}
     });
     return () => unsubscribe();
   }, []);
@@ -37,9 +33,6 @@ const AuthProvider = ({ children }) => {
 
     return createUserWithEmailAndPassword(auth, email, password);
   };
-  // updateProfile(auth.currentUser, {
-  //     displayName: "Jane Q. User", photoURL: "https://example.com/jane-q-user/profile.jpg"
-  // })
 
   const updateUserProfile = (name, photo) => {
     return updateProfile(auth.currentUser, {
@@ -61,9 +54,7 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, githubProvider);
   };
   const logout = () => {
-    // setLoading(true);
     setUser(null);
-    // console.log("logout")
     return signOut(auth);
   };
 
