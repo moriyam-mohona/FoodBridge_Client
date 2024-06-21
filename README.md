@@ -25,7 +25,7 @@ Ensure you have the following installed on your local machine:
 
 ## Live Demo
 
-Check out the live version of our client-side application (https://food-bridge-96dfc.web.app/).
+Check out the live version of our client-side application [here](https://food-bridge-96dfc.web.app/).
 
 ## Contributing
 
