@@ -16,7 +16,7 @@ Server Site: https://github.com/moriyam-mohona/FoodBridge_Server
 ## Getting Started
 
 1. Clone the repository: `git clone https://github.com/moriyam-mohona/FoodBridge_Client.git`
-2. Navigate to the project directory: `cd foodbridge`
+2. Navigate to the project directory: `cd FoodBridge_Client`
 3. Install dependencies: `npm install` or `yarn install`
 4. Start the development server: `npm run dev` or `yarn run dev`
 
