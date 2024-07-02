@@ -11,7 +11,6 @@ Server Site: https://github.com/moriyam-mohona/FoodBridge_Server
 - **Real-Time Updates:** Keep track of available food items and their statuses in real-time.
 - **User-Friendly Interface:** Intuitive design and easy navigation make it simple for users to share and receive food.
 - **Responsive Design:** Accessible on various devices, including desktops, tablets, and mobile phones.
-- **Secure Transactions:** Ensure safe and reliable food exchanges through secure user authentication and verification.
 
 ## Getting Started
 
